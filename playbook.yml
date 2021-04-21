@@ -41,7 +41,7 @@
             playbook_name: "{{ job_info.json.playbook }}"
             credentials_used: "{{ job_info.json.summary_fields.credentials | map(attribute='name') | list }}"
       run_once: true
-      delegate_to: localhost
+#      delegate_to: localhost
     - name: write syslog
       syslogger:
         facility: syslog
