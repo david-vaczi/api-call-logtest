@@ -45,7 +45,7 @@
             job_type: "{{ job_info.json.job_type }}"
             inventory: "{{ job_info.json.inventory }}"
             limit: "{{ job_info.json.limit }}"
-            project_name: "{{ job_info.json.project.name }}"
+            project_name: "{{ job_info.json.summary_fields.project.name }}"
             playbook_name: "{{ job_info.json.playbook }}"
       run_once: true
       delegate_to: localhost
