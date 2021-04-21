@@ -8,6 +8,9 @@
   ignore_errors: true
   tasks:
     - block:
+        - name: get job log id
+          debug:
+            var: "{{ log_job_id }}"
         - name: get job info
           uri:
             url: "https://tower.vaczi.eu:55000/api/v2/jobs/{{ log_job_id }}/"
