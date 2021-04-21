@@ -7,16 +7,14 @@
     tower_password: '{{ lookup("env", "TOWER_PASSWORD") }}'
   ignore_errors: true
   tasks:
-    # - name: get job log id
-    #   debug:
-    #     var: log_job_id
     - block:
         - name: get job log id
           debug:
             var: log_job_id
         - name: get job info
           uri:
-            url: "https://tower.vaczi.eu:55000/api/v2/jobs/{{ log_job_id }}/"
+            url: "{{ tower_host }}/api/v2/jobs/{{ log_job_id }}/"
+#            url: "https://tower.vaczi.eu:55000/api/v2/jobs/{{ log_job_id }}/"
             return_content: yes
             user: "{{ tower_username }}"
             password: "{{ tower_password }}"
