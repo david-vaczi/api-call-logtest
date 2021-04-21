@@ -1,7 +1,6 @@
 ---
 - name: Syslog logging
   hosts: all
-  gather_facts: false
   vars:
     tower_host: '{{ lookup("env", "TOWER_HOST") }}'
     tower_username: '{{ lookup("env", "TOWER_USERNAME") }}'
@@ -11,7 +10,7 @@
     - block:
         - name: get job log id
           debug:
-            var: "{{ log_job_id }}"
+            var: log_job_id
         - name: get job info
           uri:
             url: "https://tower.vaczi.eu:55000/api/v2/jobs/{{ log_job_id }}/"
