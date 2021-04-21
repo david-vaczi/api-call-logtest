@@ -7,9 +7,9 @@
     tower_password: '{{ lookup("env", "TOWER_PASSWORD") }}'
   ignore_errors: true
   tasks:
-    - name: get job log id
-      debug:
-        var: log_job_id
+    # - name: get job log id
+    #   debug:
+    #     var: log_job_id
     - block:
         - name: get job log id
           debug:
