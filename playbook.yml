@@ -36,7 +36,7 @@
         - name: set required facts
           set_fact:
             job_id: "{{ job_info.json.id }}"
-            executed_by: "{{ job_info.json.created_by.username }}"
+            executed_by: "{{ job_info.json.summary_fields.created_by.username }}"
             job_name: "{{ job_info.json.summary_fields.job_template.name }}"
             description: "{{ job_info.json.summary_fields.job_template.description }}"
             launch_type: "{{ job_info.json.launch_type }}"
