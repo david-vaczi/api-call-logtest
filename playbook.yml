@@ -33,8 +33,7 @@
         - debug:
             var: job_info['json']['summary_fields']
 
-        - name: set required facts
-          set_fact:
+        - set_fact:
             job_id: "{{ job_info.json.id }}"
             executed_by: "{{ job_info.json.summary_fields.created_by.username }}"
             job_name: "{{ job_info.json.summary_fields.job_template.name }}"
@@ -48,7 +47,7 @@
             limit: "{{ job_info.json.limit }}"
             project_name: "{{ job_info.json.project.name }}"
             playbook_name: "{{ job_info.json.playbook }}"
-            credentials_used: "{{ job_info.json.summary_fields.credentials | map(attribute='name') | list }}"
+#            credentials_used: "{{ job_info.json.summary_fields.credentials | map(attribute='name') | list }}"
       run_once: true
       delegate_to: localhost
     # - name: write syslog
