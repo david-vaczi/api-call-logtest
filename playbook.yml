@@ -1,6 +1,7 @@
 ---
 - name: Syslog logging
   hosts: all
+  gather_facts: false
   vars:
     tower_host: '{{ lookup("env", "TOWER_HOST") }}'
     tower_username: '{{ lookup("env", "TOWER_USERNAME") }}'
