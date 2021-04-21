@@ -31,7 +31,7 @@
         #   register: job_info
 
         - debug:
-            var: job_info
+            var: job_info['summary_fields']
 
         - name: set required facts
           set_fact:
