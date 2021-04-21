@@ -11,7 +11,7 @@
     - block:
         - name: get job info
           uri:
-            url: "{{ tower_host }}/api/v2/jobs/{{ log_job_id }}/"
+            url: "{{ tower_host }}/api/v2/jobs/{{ log_job_id }}/created_by"
             return_content: yes
             user: "{{ tower_username }}"
             password: "{{ tower_password }}"
