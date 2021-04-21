@@ -50,10 +50,10 @@
             credentials_used: "{{ job_info.json.summary_fields.credentials | map(attribute='name') | list }}"
       run_once: true
       delegate_to: localhost
-    # - name: write syslog
-    #   syslogger:
-    #     facility: user
-    #     priority: info
-    #     msg: "Job ID: {{ job_id }}, Executed by: {{ executed_by }}, Job name: {{ job_name }}, Description: {{ description }}, Launch type: {{ launch_type }}, Job Status: {{ job_status }}, Start Time: {{ start_time }}, Ent Time: {{ end_time }}, Job Type: {{ job_type }}, Inventory: {{ inventory }}, Job Limit: {{ limit }}, Project Name: {{ project_name }}, Playbook Name: {{ playbook_name }}, Credentials Used: {{ credentials_used | join(', ') }}"
+    - name: write syslog
+      syslogger:
+        facility: user
+        priority: info
+        msg: "Job ID: {{ job_id }}, Executed by: {{ executed_by }}, Job name: {{ job_name }}, Description: {{ description }}, Launch type: {{ launch_type }}, Job Status: {{ job_status }}, Start Time: {{ start_time }}, Ent Time: {{ end_time }}, Job Type: {{ job_type }}, Inventory: {{ inventory }}, Job Limit: {{ limit }}, Project Name: {{ project_name }}, Playbook Name: {{ playbook_name }}, Credentials Used: {{ credentials_used | join(', ') }}"
     - debug:
         msg: "Job ID: {{ job_id }}, Executed by: {{ executed_by }}, Job name: {{ job_name }}, Description: {{ description }}, Launch type: {{ launch_type }}, Job Status: {{ job_status }}, Start Time: {{ start_time }}, Ent Time: {{ end_time }}, Job Type: {{ job_type }}, Inventory: {{ inventory }}, Job Limit: {{ limit }}, Project Name: {{ project_name }}, Playbook Name: {{ playbook_name }}, Credentials Used: {{ credentials_used | join(', ') }}"
