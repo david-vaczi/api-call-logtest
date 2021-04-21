@@ -11,7 +11,7 @@
     - block:
         - name: get job info
           uri:
-            url: "{{ tower_host }}/api/v2/jobs/{{ log_job_id }}/content/"
+            url: "https://tower.vaczi.eu:55000/api/v2/jobs/{{ log_job_id }}/"
             return_content: yes
             user: "{{ tower_username }}"
             password: "{{ tower_password }}"
