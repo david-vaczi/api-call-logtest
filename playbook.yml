@@ -1,5 +1,5 @@
 ---
-- name: Syslog logging
+- name: Log to syslog
   hosts: all
   vars:
     tower_host: '{{ lookup("env", "TOWER_HOST") }}'
@@ -8,10 +8,9 @@
   ignore_errors: true
   tasks:
     - block:
-        - name: get job log id
-          debug:
-            var: log_job_id
-        - name: get job info
+        - debug:
+            msg: 'The previous job`s ID is: {{ log_job_id }}'
+        - name: API call to get job data 
           uri:
             url: "{{ tower_host }}/api/v2/jobs/{{ log_job_id }}/"
             return_content: yes
@@ -22,7 +21,8 @@
             method: GET
           register: job_info
 
-        - set_fact:
+        - name: Initialize the facts
+          set_fact:
             job_id: "{{ job_info.json.id }}"
             executed_by: "{{ job_info.json.summary_fields.created_by.username }}"
             job_name: "{{ job_info.json.summary_fields.job_template.name }}"
@@ -38,10 +38,13 @@
             playbook_name: "{{ job_info.json.playbook }}"
             credentials_used: "{{ job_info.json.summary_fields.credentials | map(attribute='name') | list }}"
       run_once: true
-    - name: write syslog
+
+    - name: Write results to syslog
       syslogger:
         facility: syslog
         priority: info
         msg: "Job ID: {{ job_id }}, Executed by: {{ executed_by }}, Job name: {{ job_name }}, Description: {{ description }}, Launch type: {{ launch_type }}, Job Status: {{ job_status }}, Start Time: {{ start_time }}, End Time: {{ end_time }}, Job Type: {{ job_type }}, Inventory: {{ inventory }}, Job Limit: {{ limit }}, Project Name: {{ project_name }}, Playbook Name: {{ playbook_name }}, Credentials Used: {{ credentials_used | join(', ') }}"
-    - debug:
+    
+    - name: Write results to job log
+      debug:
         msg: "Job ID: {{ job_id }}, Executed by: {{ executed_by }}, Job name: {{ job_name }}, Description: {{ description }}, Launch type: {{ launch_type }}, Job Status: {{ job_status }}, Start Time: {{ start_time }}, End Time: {{ end_time }}, Job Type: {{ job_type }}, Inventory: {{ inventory }}, Job Limit: {{ limit }}, Project Name: {{ project_name }}, Playbook Name: {{ playbook_name }}, Credentials Used: {{ credentials_used | join(', ') }}"
